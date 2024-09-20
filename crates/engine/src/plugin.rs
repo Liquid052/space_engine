@@ -1,3 +1,5 @@
+extern crate bevy;
+
 use bevy::app::{PluginGroup, PluginGroupBuilder};
 use bevy::DefaultPlugins;
 use bevy::prelude::Window;

@@ -11,10 +11,6 @@ save_pipeline   = { path = "../save_pipeline" }
 bevy.workspace  = true
 
 
-[dev-dependencies]
-serde.workspace = true
-ron.workspace   = true
-
 
 
 

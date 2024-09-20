@@ -18,6 +18,8 @@ members = [
     "crates/engine",
 ]
 
+[lib]
+path = "src/lib.rs"
 
 [dependencies]
 engine = { path = "crates/engine" }
