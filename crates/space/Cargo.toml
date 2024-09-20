@@ -1,0 +1,22 @@
+[package]
+name = "space"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+engine_core = { path = "../engine_core" }
+bevy.workspace = true
+iyes_perf_ui.workspace = true
+bevy-inspector-egui.workspace = true
+bevy_prototype_lyon.workspace = true
+log = "0.4.21"
+
+
+[dev-dependencies]
+engine_core = { path = "../engine_core" }
+test-case = "3.3.1"
+
+[features]
+default = ["f32"]
+f32 = []
+f64 = []

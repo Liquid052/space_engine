@@ -1,0 +1,15 @@
+
+=== engine-related ===
+
+1. ✅ keplerian elements for both bodies and vessels
+2. ✅ parallel physics simulation
+3. ✅ binary systems
+4. ✅ asteroid belts
+5. documentation
+
+
+=== game-related ===
+
+1. mega-structures
+2. integration with proxy system and scripting
+3. procedural generation with scripting support

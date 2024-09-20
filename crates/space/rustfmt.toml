@@ -1,0 +1,8 @@
+# command: cargo +nightly fmt
+struct_field_align_threshold = 10
+enum_discrim_align_threshold = 10
+fn_single_line = true
+reorder_impl_items = true
+match_arm_leading_pipes = "Never"
+match_block_trailing_comma = true
+trailing_semicolon = false

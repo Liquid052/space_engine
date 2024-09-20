@@ -1,0 +1,20 @@
+[package]
+name = "engine"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+engine_core     = { path = "../engine_core" }
+space           = { path = "../space"}
+save_pipeline   = { path = "../save_pipeline" }
+bevy.workspace  = true
+
+
+[dev-dependencies]
+serde.workspace = true
+ron.workspace   = true
+
+
+
+

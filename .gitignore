@@ -1,0 +1,14 @@
+/imgs/
+/schemes/
+debug/
+target/
+/assets/saves/*
+
+
+Cargo.lock
+**/*.rs.bk
+**/*.mod_index.ron
+
+*.vscode
+*.pdb
+.idea/

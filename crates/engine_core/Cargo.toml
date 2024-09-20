@@ -1,0 +1,15 @@
+[package]
+name = "engine_core"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+core_pack_objects = { path = "../core_pack_objects" }
+core_assets       = { path = "../core_assets" }
+bevy.workspace                = true
+bevy-inspector-egui.workspace = true
+bevy_common_assets.workspace  = true
+ron.workspace   = true
+serde.workspace = true
+
