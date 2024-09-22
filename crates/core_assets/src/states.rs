@@ -64,7 +64,8 @@ impl ComputedStates for Loading {
     // Now, we define the rule that determines the value of our computed state.
     fn compute(sources: LoadingStates) -> Option<Loading> {
         match sources {
-            LoadingStates::Finished => None,
+            LoadingStates::Finished   => None,
+            LoadingStates::CoreAssets => None,
             _ => Some(Loading),
         }
     }
