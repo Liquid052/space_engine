@@ -1,19 +1,25 @@
 extern crate bevy;
 
-use bevy::app::{PluginGroup, PluginGroupBuilder};
+use bevy::app::{App, Plugin, PluginGroup, PluginGroupBuilder};
 use bevy::DefaultPlugins;
 use bevy::prelude::Window;
 use bevy::utils::default;
 use bevy::window::WindowPlugin;
+use bevy_asset_loader::prelude::{AssetCollection, ConfigureLoadingState, LoadingStateAppExt, LoadingStateConfig};
 use engine_core::prelude::CoreEnginePlugin;
 use space::plugins::SpacePlugin;
+use crate::prelude::LoadingStates;
 
 // entry point
 #[derive(Default)]
 pub struct EnginePlugin {
     name: String,
     enable_space: bool,
+    loader_injection: LoaderInjection,
 }
+
+// for adding external dependencies into bevy_asset_loader
+
 
 impl EnginePlugin {
     pub fn new(name: impl Into<String>) -> Self {
@@ -26,6 +32,27 @@ impl EnginePlugin {
         self.enable_space = true;
 
         self
+    }
+    pub fn load<A: AssetCollection>(mut self) -> Self {
+        self.loader_injection.vec.push(Box::new(|app| {
+            app.configure_loading_state(
+                LoadingStateConfig::new(LoadingStates::CoreAssets)
+                    .load_collection::<A>()
+            );
+        }));
+
+        self
+    }
+}
+
+#[derive(Default)]
+struct LoaderInjection {
+    pub vec: Vec<Box<dyn Fn(&mut App) + Sync + Send>>
+}
+
+impl Plugin for LoaderInjection {
+    fn build(&self, app: &mut App) {
+        self.vec.iter().for_each(|boxed_fn| boxed_fn(app))
     }
 }
 
@@ -40,7 +67,8 @@ impl PluginGroup for EnginePlugin {
                 }),
                 ..Default::default()
             }))
-            .add(CoreEnginePlugin::new());
+            .add(CoreEnginePlugin::new())
+            .add(self.loader_injection);
 
         if self.enable_space {
             group = group.add(SpacePlugin {

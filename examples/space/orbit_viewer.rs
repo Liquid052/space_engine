@@ -1,12 +1,11 @@
-extern crate engine;
+extern crate decay_engine;
 extern crate bevy;
 extern crate bevy_inspector_egui;
 
 use bevy::input::mouse::MouseWheel;
 use bevy::prelude::*;
 use bevy_inspector_egui::quick::{ResourceInspectorPlugin, WorldInspectorPlugin};
-use engine::prelude::*;
-
+use decay_engine::prelude::*;
 
 fn main() {
     App::new()

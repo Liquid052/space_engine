@@ -8,7 +8,7 @@ use walkdir::WalkDir;
 
 static PREPROCESSED: AtomicBool = AtomicBool::new(false);
 
-pub fn preprocess_mods() {
+pub fn generate_mod_index() {
     if PREPROCESSED.load(Ordering::SeqCst) {
         return;
     }

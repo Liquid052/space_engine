@@ -2,7 +2,7 @@ use bevy::prelude::*;
 use bevy_asset_loader::prelude::*;
 use bevy_common_assets::ron::RonAssetPlugin;
 
-use crate::helpers::preprocess_mods;
+use crate::helpers::generate_mod_index;
 use crate::prelude::*;
 use crate::systems::{cleanup, move_state, refresh};
 
@@ -10,7 +10,7 @@ pub struct CoreAssetsPlugin;
 
 impl Plugin for CoreAssetsPlugin {
     fn build(&self, app: &mut App) {
-        preprocess_mods();
+        generate_mod_index();
 
         // plugins
         app.add_plugins(RonAssetPlugin::<ModIndex>::new(&["mod_index.ron"]))
@@ -27,6 +27,10 @@ impl Plugin for CoreAssetsPlugin {
             .add_computed_state::<ContentLoaded>()
             .add_computed_state::<Loading>()
             // loading
+            .add_loading_state(
+                LoadingState::new(LoadingStates::CoreAssets)
+                    .continue_to_state(LoadingStates::ModIndex)
+            )
             .add_loading_state(
                 LoadingState::new(LoadingStates::ModIndex)
                     .continue_to_state(LoadingStates::ModsMeta)

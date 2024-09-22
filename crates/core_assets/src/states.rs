@@ -3,6 +3,7 @@ use bevy::prelude::*;
 #[derive(States, Clone, Copy, Default, Eq, PartialEq, Hash, Reflect, Debug)]
 pub enum LoadingStates {
     #[default]
+    CoreAssets,
     ModIndex,
     ModsMeta,
     ContentLoading,
