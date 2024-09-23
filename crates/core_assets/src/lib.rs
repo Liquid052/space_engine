@@ -15,4 +15,6 @@ pub mod prelude {
     pub use super::plugins::*;
     pub use super::resources::*;
     pub use super::states::*;
+
+    pub use iyes_progress::prelude::{Progress, ProgressCounter, ProgressPlugin, ProgressSystem};
 }

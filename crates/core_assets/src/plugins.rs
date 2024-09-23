@@ -15,6 +15,11 @@ impl Plugin for CoreAssetsPlugin {
         // plugins
         app.add_plugins(RonAssetPlugin::<ModIndex>::new(&["mod_index.ron"]))
             .add_plugins(RonAssetPlugin::<ModInfo>::new(&["mod_info.ron"]))
+            .init_resource::<ProgressCounter>()
+            .add_plugins(ProgressPlugin::new(LoadingStates::ModIndex).continue_to(LoadingStates::ModsMeta))
+            .add_plugins(ProgressPlugin::new(LoadingStates::ModsMeta).continue_to(LoadingStates::ContentLoading))
+            .add_plugins(ProgressPlugin::new(LoadingStates::ContentLoading).continue_to(LoadingStates::ContentProcessing))
+            .add_plugins(ProgressPlugin::new(LoadingStates::ContentProcessing).continue_to(LoadingStates::Finished))
             // resources
             .init_resource::<EngineBuilding>()
             // assets
