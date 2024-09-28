@@ -21,7 +21,7 @@ impl Plugin for CoreAssetsPlugin {
             .add_plugins(ProgressPlugin::new(LoadingStates::ContentLoading).continue_to(LoadingStates::ContentProcessing))
             .add_plugins(ProgressPlugin::new(LoadingStates::ContentProcessing).continue_to(LoadingStates::Finished))
             // resources
-            .init_resource::<EngineBuilding>()
+            .init_resource::<EngineBuildFinished>()
             // assets
             .init_asset::<ModIndex>()
             .init_asset::<ModInfo>()

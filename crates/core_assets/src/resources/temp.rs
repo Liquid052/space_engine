@@ -8,7 +8,7 @@ use crate::resources::*;
 use crate::resources::assets::Mods;
 
 #[derive(Resource, Default, DerefMut, Deref)]
-pub struct EngineBuilding(pub bool);
+pub struct EngineBuildFinished(pub bool);
 
 #[derive(AssetCollection, Clone, Resource)]
 pub struct ModPaths {
