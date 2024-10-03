@@ -15,17 +15,7 @@ pub mod commands;
 pub mod plugins;
 
 // export
-pub mod prelude {
-    pub use bundles::*;
-    pub use components::*;
-    pub use events::*;
-    pub use plugins::*;
-    pub use resources::*;
-    pub use commands::*;
-    pub use constants::*;
-    
-    use super::*;
-}
+pub mod prelude;
 
 #[cfg(test)]
 mod tests {

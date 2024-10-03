@@ -6,17 +6,8 @@ mod compos;
 mod plugins;
 mod resources;
 mod systems;
+pub mod traits;
 pub mod bevy_api;
 pub mod helpers;
+pub mod prelude;
 
-pub mod prelude {
-    use super::*;
-
-    pub use commands::*;
-    pub use helpers::*;
-    pub use crate::bundles::*;
-    pub use compos::*;
-    pub use plugins::*;
-    pub use resources::*;
-    pub use bevy_api::*;
-}
