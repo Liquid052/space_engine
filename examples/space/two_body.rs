@@ -1,6 +1,6 @@
-extern crate engine;
 extern crate bevy;
 extern crate bevy_inspector_egui;
+extern crate engine;
 
 use bevy::input::mouse::MouseWheel;
 use bevy::prelude::*;
@@ -13,6 +13,7 @@ fn main() {
             .enable_space()
             .set(SpacePlugin {
                 draw_enabled: true,
+                camera_enabled: true,
                 cam_background_enabled: true,
                 cam_target: Some("Kerbin + Mun".into()),
             })
@@ -73,7 +74,7 @@ fn setup_space(mut commands: Commands) {
 
 fn mouse_wheel_zoom(
     mut evs: EventReader<MouseWheel>,
-    mut cam: Query<&mut OrthographicProjection, With<Space>>,
+    mut cam: Query<&mut OrthographicProjection, With<SpaceLayer>>,
 ) {
     let mut orto = cam.single_mut();
 

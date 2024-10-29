@@ -1,6 +1,6 @@
-use std::fmt::Debug;
-use crate::compos::TagType;
+use crate::components::TagType;
 use crate::helpers::EntityTransformer;
+use std::fmt::Debug;
 
 pub trait PackTransformer: Send + Debug + Sync + 'static {
     fn type_name(&self) -> &str;
@@ -19,7 +19,7 @@ pub trait PackTransformer: Send + Debug + Sync + 'static {
     fn pack(&self, builder: &mut EntityTransformer);
 }
 
-pub trait GeneralTransformer: Send + Debug + Sync + 'static {
+pub trait AttributeTransformer: Send + Debug + Sync + 'static {
     fn attribute(&self) -> (&str, TagType);
 
     fn unpack(&self, builder: &mut EntityTransformer);

@@ -1,0 +1,11 @@
+(
+    name:        "vanilla",
+    db_name:     "vanilla",
+    description: None,
+    version:     "0.01",
+
+    db_prefix:    "vanilla",
+    asset_path:   "vanilla",
+    dependencies: [],
+    untyped:      ["textures", "blocks", "items"]
+)

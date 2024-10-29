@@ -1,7 +1,7 @@
 #![ allow(unused)]
 use std::sync::Arc;
 
-use bevy::asset::{Asset, Assets, AssetServer, Handle, LoadedFolder, UntypedHandle};
+use bevy::asset::{Asset, AssetServer, Assets, Handle, LoadedFolder, UntypedHandle};
 use bevy::prelude::{Deref, DerefMut, FromWorld, Resource, World};
 use bevy::utils::HashMap;
 
@@ -106,6 +106,7 @@ impl AssetDatabase {
     pub fn asset_untyped(&self, name: &str) -> Option<&UntypedHandle> {
         self.assets.get(name)
     }
+    //noinspection ALL
     pub fn asset<T: Asset>(&self, name: &str) -> Option<Handle<T>> {
         self.assets.get(name)
             .and_then(|handle| {

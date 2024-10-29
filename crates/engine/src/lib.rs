@@ -2,15 +2,13 @@
 
 pub mod plugin;
 
+pub use engine_core;
+pub use galaxy;
 // export
 pub use plugin::EnginePlugin;
-pub use save_pipeline;
-pub use engine_core;
 pub use space;
+pub use utils::*;
 
-pub mod prelude {
-    pub use super::plugin::*;
-    pub use engine_core::prelude::*;
-    pub use space::prelude::*;
 
-}
+pub mod prelude;
+

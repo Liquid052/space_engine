@@ -1,4 +1,4 @@
-use std::fs::{File, remove_file};
+use std::fs::{remove_file, File};
 use std::io;
 use std::io::Write;
 use std::path::{Path, PathBuf};
@@ -39,20 +39,20 @@ pub fn generate_mod_index() {
 }
 
 // helpers
-fn get_index_file(dir: &PathBuf) -> io::Result<File> {
+fn get_index_file(dir: &Path) -> io::Result<File> {
     let index_path = dir.join("paths.mod_index.ron");
 
     if index_path.exists() {
-        remove_file(index_path.clone()).unwrap();
+        remove_file(index_path.clone())?;
     }
 
     File::create(index_path)
 }
 
-fn scan_mods(mut file: File, path_buf: &PathBuf) {
-    const MOD_FILENAME: &'static str = "mod.mod_info.ron";
+fn scan_mods(mut file: File, path_buf: &Path) {
+    const MOD_FILENAME: &str = "mod.mod_info.ron";
     let mut text = "( paths: [".to_string();
-    let path = path_buf.as_path().to_str().unwrap();
+    let path = path_buf.to_str().unwrap();
 
     let mut contains = false;
     WalkDir::new(path)
@@ -61,7 +61,7 @@ fn scan_mods(mut file: File, path_buf: &PathBuf) {
         // filter only those being subdirectories of mod index and remap
         .filter_map(|entry| {
             let is_dir = entry.file_type().is_dir();
-            let is_subdirectory = path_depth_diff(path_buf.as_path(), entry.path()) == 1;
+            let is_subdirectory = path_depth_diff(path_buf, entry.path()) == 1;
             if !(is_dir && is_subdirectory) {
                 return None;
             }
@@ -92,7 +92,7 @@ fn scan_mods(mut file: File, path_buf: &PathBuf) {
     text.push_str("])");
     let text = text.replace("\\", "\\\\");
 
-    file.write(text.as_bytes()).unwrap();
+    file.write_all(text.as_bytes()).unwrap();
 }
 
 fn path_depth_diff(path1: &Path, path2: &Path) -> usize {

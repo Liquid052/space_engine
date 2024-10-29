@@ -1,11 +1,15 @@
 mod naming;
 
-use bevy::prelude::*;
-use core_pack_objects::prelude::*;
-use core_assets::prelude::*;
 use crate::prelude::*;
+use bevy::prelude::*;
+use core_assets::prelude::*;
+use core_pack_objects::prelude::*;
+use core_world_streaming::plugins::WorldStreamingPlugin;
+
+use crate::attributes::SpritePathAttribute;
 // export
 pub use naming::*;
+
 /// Main plugin
 pub struct CoreEnginePlugin {
     minimal: bool,
@@ -40,10 +44,14 @@ impl Plugin for CoreEnginePlugin {
         app.add_plugins(CoreAssetsPlugin)
             .add_plugins(PackObjectsPlugin)
             .add_plugins(NamingPlugin)
+            .add_plugins(WorldStreamingPlugin)
+            .add_plugins(CameraManagerPlugin)
             .add_sub_state::<AppState>()
             .add_computed_state::<InGame>()
             .add_computed_state::<Running>()
-            .add_computed_state::<Paused>();
+            .add_computed_state::<Paused>()
+            // attributes
+            .add_pack_attribute(SpritePathAttribute);
     }
 }
 

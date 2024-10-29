@@ -1,5 +1,6 @@
-use bevy::prelude::*;
+use crate::components::naming::UniquelyNamed;
 use crate::prelude::*;
+use bevy::prelude::*;
 
 pub struct NamingPlugin;
 

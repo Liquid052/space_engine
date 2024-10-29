@@ -1,14 +1,13 @@
-// example demonstrating use of pack/unpack feature
-extern crate engine;
-extern crate bevy_inspector_egui;
 extern crate bevy;
+extern crate bevy_inspector_egui; // example demonstrating use of pack/unpack feature
+extern crate engine;
 
-use bevy_inspector_egui::quick::*;
-use bevy_inspector_egui::egui;
-use engine::prelude::*;
 use bevy::prelude::*;
 use bevy_inspector_egui::bevy_egui::EguiContexts;
+use bevy_inspector_egui::egui;
 use bevy_inspector_egui::egui::Color32;
+use bevy_inspector_egui::quick::*;
+use engine::prelude::*;
 
 #[derive(Component, Reflect, Copy, Clone)]
 #[reflect(Component)]
@@ -48,39 +47,30 @@ impl PackTransformer for BlockPack {
         let mut tags = ent_mut.get_mut::<Pack>().unwrap();
 
         // get type-specified tags
-        let sprite_path: String = tags.take("sprite_path").unwrap().into();
         let pages:           u8 = tags.take("pages").unwrap().into();
         let durability:      u8 = tags.take("durability").unwrap().into();
         let hp:             u16 = tags.take("hp").unwrap().into();
 
-        let asset_server = builder.world().resource::<AssetServer>().clone();
-        let sprite: Handle<Image>   = asset_server.load(&sprite_path);
+
 
         // apply commands
         builder.world()
             .commands()
             .entity(ent)
-            .insert((Block { pages, durability, hp }, sprite));
+            .insert((Block { pages, durability, hp }));
     }
 
     fn pack(&self, builder: &mut EntityTransformer) {
         let ent  = builder.main_entity() ;
         let world = builder.world();
-        let asset_server = world.resource::<AssetServer>().clone();
 
         let mut ent_mut = world.entity_mut(ent);
 
         let block = *ent_mut.get::<Block>().unwrap();
-        let img_handle = ent_mut.get::<Handle<Image>>()
-            .unwrap()
-            .clone_weak();
-
-        let path = asset_server.get_path(&img_handle).unwrap().to_string();
 
         // insert tags
         ent_mut.get_mut::<Pack>()
             .unwrap()
-            .insert("sprite_path", PackTag::String(path))
             .insert("pages", PackTag::U8(block.pages))
             .insert("durability", PackTag::U8(block.durability))
             .insert("hp", PackTag::U16(block.hp));
@@ -97,7 +87,7 @@ impl PackTransformer for BlockPack {
 #[derive(Default, Debug)]
 pub struct NamePackAttribute;
 
-impl GeneralTransformer for NamePackAttribute {
+impl AttributeTransformer for NamePackAttribute {
     fn attribute(&self) -> (&str, TagType) {
         ("name", TagType::String)
     }

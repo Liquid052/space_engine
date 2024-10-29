@@ -13,5 +13,5 @@ pub struct TwoBodyBundle {
     pub space_layer:   RenderLayers,
     pub depth:         SpaceDepth,
     pub star:          StarMarker,
-    pub space:         Space,
+    pub space: SpaceLayer,
 }

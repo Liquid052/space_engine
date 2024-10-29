@@ -1,7 +1,7 @@
+use crate::prelude::{FocusMode, SpaceLayer};
+use crate::resources::StarSystem;
 use bevy::ecs::world::Command;
-use bevy::prelude::{Camera, Commands, info, With, World};
-use crate::prelude::{FocusMode, Space};
-use crate::resources::SpaceMap;
+use bevy::prelude::{info, Camera, Commands, With, World};
 
 
 mod builders;
@@ -15,6 +15,7 @@ pub trait SpaceCommandsExt {
     fn space_cam_follow(&mut self, name: &str);
 }
 
+//noinspection RsExternalLinter
 impl<'w, 's> SpaceCommandsExt for Commands<'w,'s> {
     fn create_space(&mut self, name: &str) {
         self.add(CreateSpaceCommand(name.into()))
@@ -32,13 +33,13 @@ struct SpaceCamFollow(pub String);
 impl Command for CreateSpaceCommand {
     fn apply(self, world: &mut World) {
         info!("Creating new space \"{}\"", self.0);
-        
-        world.resource_mut::<SpaceMap>().name = self.0;
+
+        world.resource_mut::<StarSystem>().system_name = self.0;
     }
 }
 impl Command for SpaceCamFollow {
     fn apply(self, world: &mut World) {
-        let mut query = world.query_filtered::<&mut FocusMode, (With<Camera>, With<Space>)>();
+        let mut query = world.query_filtered::<&mut FocusMode, (With<Camera>, With<SpaceLayer>)>();
         
         let Ok(mut focus_mode) = query.get_single_mut(world) else {
             return;

@@ -7,3 +7,7 @@ pub fn nth_frame_once<const CAP: u32>(mut counter: Local<u32>) -> bool {
 
     *counter == CAP
 }
+
+pub fn one_with_component<T: Component>(query: Query<(), With<T>>) -> bool {
+    query.get_single().is_ok()
+}

@@ -28,7 +28,7 @@ pub fn spawn_cam_with_background(mut commands: Commands, server: Res<AssetServer
             InheritedVisibility::default(),
             bloom,
             SPACE_LAYER,
-            Space,
+            SpaceLayer,
             SpacePos::default(),
         ))
         .with_children(|ch_b| {
@@ -59,14 +59,14 @@ pub fn spawn_cam(mut commands: Commands) {
             InheritedVisibility::default(),
             bloom,
             SPACE_LAYER,
-            Space,
+            SpaceLayer,
             SpacePos::default(),
         ));
 }
 
 pub fn handle_camera_target(
     mut reader: EventReader<CamTargetEv>,
-    mut cam: Query<&mut FocusMode, (With<Camera>, With<Space>)>,
+    mut cam: Query<&mut FocusMode, (With<Camera>, With<SpaceLayer>)>,
 ) {
     let Ok(mut focus) = cam.get_single_mut() else {
         return;
@@ -83,7 +83,7 @@ pub fn cam_follow(
     name_reg: Res<NameReg>,
     mut cameras: Query<(&mut SpacePos, &FocusMode), With<Camera>>,
     transforms: Query<&SpacePos, Without<Camera>>,
-    space: Res<SpaceMap>,
+    space: Res<StarSystem>,
 ) {
     cameras
         .iter_mut()
@@ -108,14 +108,14 @@ pub fn cam_follow(
         });
 }
 
-pub fn update_cam_enabled(mut query: Query<EnabledCams, (With<Space>, Changed<CamEnabled>)>) {
+pub fn update_cam_enabled(mut query: Query<EnabledCams, (With<SpaceLayer>, Changed<CamEnabled>)>) {
     query
         .iter_mut()
         .for_each(|(enabled, mut cam)| cam.is_active = **enabled);
 }
 
 pub fn scale_camera_background(
-    cams: Query<CamsChildren, (With<Space>, Changed<OrthographicProjection>)>,
+    cams: Query<CamsChildren, (With<SpaceLayer>, Changed<OrthographicProjection>)>,
     mut background: Query<&mut Transform>,
 ) {
     cams.iter().for_each(|(orto, child)| {
@@ -133,7 +133,7 @@ pub fn scale_camera_background(
 }
 
 pub fn map_pos_transforms(
-    cam: Query<&SpacePos, (With<Space>, With<Camera>)>,
+    cam: Query<&SpacePos, (With<SpaceLayer>, With<Camera>)>,
     mut bodies: Query<(&mut Transform, &SpacePos)>,
 ) {
     let cam_abs = cam.single();

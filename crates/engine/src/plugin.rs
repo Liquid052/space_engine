@@ -1,14 +1,16 @@
 extern crate bevy;
 
+use crate::prelude::LoadingStates;
 use bevy::app::{App, Plugin, PluginGroup, PluginGroupBuilder};
-use bevy::DefaultPlugins;
 use bevy::prelude::Window;
 use bevy::utils::default;
 use bevy::window::WindowPlugin;
+use bevy::DefaultPlugins;
 use bevy_asset_loader::prelude::{AssetCollection, ConfigureLoadingState, LoadingStateAppExt, LoadingStateConfig};
 use engine_core::prelude::CoreEnginePlugin;
+use galaxy::plugins::GalaxyPlugin;
 use space::plugins::SpacePlugin;
-use crate::prelude::LoadingStates;
+use utils::plugins::UtilityPlugins;
 
 // entry point
 #[derive(Default)]
@@ -33,6 +35,7 @@ impl EnginePlugin {
 
         self
     }
+
     pub fn load<A: AssetCollection>(mut self) -> Self {
         self.loader_injection.vec.push(Box::new(|app| {
             app.configure_loading_state(
@@ -59,25 +62,30 @@ impl Plugin for LoaderInjection {
 impl PluginGroup for EnginePlugin {
     fn build(self) -> PluginGroupBuilder {
         let mut group = PluginGroupBuilder::start::<Self>()
-            .add_group(DefaultPlugins
-                .set(WindowPlugin {
-                primary_window: Some(Window {
-                    title: self.name,
-                    ..Default::default()
-                }),
-                ..Default::default()
-            }))
+            .add_group(DefaultPlugins)
             .add(CoreEnginePlugin::new())
             .add(self.loader_injection);
+
+        group = group.set(WindowPlugin {
+            primary_window: Some(Window {
+                title: self.name,
+                ..Default::default()
+            }),
+            ..default()
+        });
+
+        group = group.add_group(UtilityPlugins);
 
         if self.enable_space {
             group = group.add(SpacePlugin {
                 draw_enabled: true,
+                camera_enabled: false,
                 cam_background_enabled: false,
                 cam_target: None,
             });
         }
 
+        group = group.add(GalaxyPlugin);
         group
     }
 }

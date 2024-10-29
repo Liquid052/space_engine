@@ -1,17 +1,16 @@
 use bevy::prelude::*;
 
 
-
 #[derive(Debug, Default, Resource)]
-pub struct SpaceMap {
-    pub(crate) name: String,
+pub struct StarSystem {
+    pub(crate) system_name: String,
     pub(crate) sun:  Option<Entity>,
 }
 
-impl SpaceMap {
-    pub fn name(&self) -> &str { &self.name }
+impl StarSystem {
+    pub fn system_name(&self) -> &str { &self.system_name }
 
-    pub fn loaded(&self) -> bool { !self.name.is_empty() }
+    pub fn loaded(&self) -> bool { !self.system_name.is_empty() }
 
     pub fn set_sun(&mut self, sun: Entity) {
         self.sun = Some(sun);

@@ -4,15 +4,13 @@ use constants::{PI, TWO_PI};
 pub(crate) mod helpers;
 pub(crate) mod systems;
 
-pub mod bundles;
 pub mod components;
 pub mod constants;
-pub mod events;
 pub mod resources;
 pub mod commands;
-
-
 pub mod plugins;
+pub mod bundles;
+pub mod events;
 
 // export
 pub mod prelude;

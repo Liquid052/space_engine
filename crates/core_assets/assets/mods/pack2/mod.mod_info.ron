@@ -1,0 +1,11 @@
+(
+    name:        "textures_pack",
+    db_name:     "textures",
+    description: Some("Textures for engine"),
+    version:     "0.02",
+
+    db_prefix:    "engine",
+    asset_path:   "pack2",
+    dependencies: [],
+    untyped:      ["textures"]
+)

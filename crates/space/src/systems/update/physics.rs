@@ -1,5 +1,5 @@
-use std::f32::consts::PI;
 use bevy::prelude::*;
+use std::f32::consts::PI;
 
 use crate::prelude::*;
 
@@ -10,7 +10,7 @@ pub fn update_epochs(
 ) {
     let time = time.delta_seconds_f64() * scale.0;
 
-    query.iter_mut().for_each(|(mut orbit, keplerian)| {
+    query.par_iter_mut().for_each(|(mut orbit, keplerian)| {
         orbit.epoch += time;
 
         if (orbit.epoch > orbit.period) && keplerian.is_elliptical() {
@@ -19,8 +19,8 @@ pub fn update_epochs(
     });
 }
 
-pub fn vessel_rotation(mut vessels: Query<(&mut Transform, &Orbit, &Keplerian, &SpacePos), (With<Space>, With<VesselMarker>)>, pos: Query<&SpacePos>) {
-    vessels.iter_mut()
+pub fn vessel_rotation(mut vessels: Query<(&mut Transform, &Orbit, &Keplerian, &SpacePos), (With<SpaceLayer>, With<VesselMarker>)>, pos: Query<&SpacePos>) {
+    vessels.par_iter_mut()
         .for_each(|(mut transform, orbit, keplerian, space_pos)| {
             let parent_pos = pos.get(orbit.parent).unwrap();
             let diff          = (**parent_pos - **space_pos).as_vec2();

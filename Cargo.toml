@@ -1,29 +1,57 @@
 [package]
 name = "decay_engine"
-version = "0.2.0"
+version = "0.2.5"
 readme = "README.md"
 edition = "2021"
 
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+
+
+## linker
+[target.x86_64-pc-windows-msvc]
+linker = "rust-lld.exe"
+rustflags = [
+    # Nightly
+    "-Zshare-generics=y",
+    #     "-Zthreads=0",
+]
+
 [workspace]
 resolver = "2"
-
 members = [
 # abstraction over asset management. Similiar to resource location [https://minecraft.wiki/w/Resource_location]
     "crates/core_assets",
 # for describing data which cannot be serialized, like assets
     "crates/core_pack_objects",
+    "crates/core_world_streaming",
+    "crates/core_camera",
     "crates/engine_core",
-
+    "crates/test_space",
     "crates/space",
-    "crates/save_pipeline",
-    "crates/engine",
+    "crates/galaxies",
+    "crates/engine"
 ]
 
 
 
 [dependencies]
+# export
 engine = { path = "crates/engine" }
-bevy.workspace = true
+bevy = { workspace = true, features = [] }
+
+[features]
+default = []
+
 
 [lib]
 path = "src/lib.rs"
@@ -36,14 +64,15 @@ bevy-inspector-egui.workspace = true
 [workspace.dependencies]
 walkdir             = "2.5.0"
 iyes_progress = "0.12.0"
+
 bevy_asset_loader   = { version = "0.21.0", features = ["2d", "progress_tracking"]}
-bevy                = { version = "0.14.2", features = ["file_watcher"] }
+bevy = { version = "^0.14.2", features = ["file_watcher", "dynamic_linking", "serialize"] }
 bevy_mod_scripting  = { version = "0.6.0", features = ["luajit52"] }
 bevy_prototype_lyon = "0.12.0"
 iyes_perf_ui        = "0.3.0"
 itertools           = "0.13.0"
 bevy_common_assets  = { version = "0.11.0",  features = ["ron"] }
-bevy-inspector-egui = "0.26.0"
+bevy-inspector-egui = "0.27.0"
 serde               = "1.0.164"
 ron                 = "0.8.1"
 
@@ -61,6 +90,7 @@ unwrap_or_default = "warn"
 
 
 
+# Core
 [[example]]
 name = "pack_objects"
 path = "examples/core/pack_objects.rs"
@@ -70,9 +100,19 @@ name = "print_content"
 path = "examples/core/print_content.rs"
 
 [[example]]
+name = "camera"
+path = "examples/core/camera.rs"
+
+[[example]]
 name = "naming"
 path = "examples/core/naming.rs"
 
+[[example]]
+name = "streaming"
+path = "examples/core/streaming.rs"
+
+
+# Space
 [[example]]
 name = "orbit_viewer"
 path = "examples/space/orbit_viewer.rs"
@@ -80,3 +120,13 @@ path = "examples/space/orbit_viewer.rs"
 [[example]]
 name = "two_body"
 path = "examples/space/two_body.rs"
+
+
+
+# Galaxy
+[[example]]
+name = "galaxy"
+path = "examples/galaxy/main.rs"
+
+
+

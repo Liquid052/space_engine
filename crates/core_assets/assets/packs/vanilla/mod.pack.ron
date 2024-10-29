@@ -1,0 +1,9 @@
+Mod(
+    name:        "DECAY RACE",
+    version:     "0.1",
+    namespace:   "decay_race",
+    description: "Dependencies for standard vanilla gameplay",
+    img_path:    None,
+
+    modules: []
+)

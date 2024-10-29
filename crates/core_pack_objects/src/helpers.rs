@@ -1,6 +1,6 @@
+use crate::components::Pack;
 use bevy::ecs::world::DeferredWorld;
 use bevy::prelude::*;
-use crate::compos::Pack;
 
 
 // helper for smoother interaction

@@ -1,0 +1,9 @@
+Mod(
+    name:        "Books",
+    version:     "0.1",
+    namespace:   "books",
+    description: "test",
+    img_path:    None,
+
+    modules: ["misc"]
+)

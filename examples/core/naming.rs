@@ -1,8 +1,9 @@
-extern crate engine;
 extern crate bevy;
+extern crate engine;
+mod camera;
 
-use engine::prelude::*;
 use bevy::prelude::*;
+use engine::prelude::*;
 
 fn main() {
     App::new()

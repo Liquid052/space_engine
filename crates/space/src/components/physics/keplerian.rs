@@ -37,7 +37,7 @@ impl Keplerian {
     }
 
     pub fn is_reversed(&self) -> bool {
-        if self.inclination < 0.1 && self.inclination > -0.1 { false } else { true }
+        !(self.inclination < 0.1 && self.inclination > -0.1)
     }
     
     pub fn semi_minor_axis(&self) -> f64 {

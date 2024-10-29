@@ -1,6 +1,6 @@
-use bevy::app::{App, Plugin};
-use crate::compos::{Pack, Unpacked, UnpackOnLoad};
+use crate::components::{Pack, UnpackOnLoad, Unpacked};
 use crate::prelude::TaggedObjDB;
+use bevy::app::{App, Plugin};
 
 pub struct PackObjectsPlugin;
 

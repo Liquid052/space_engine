@@ -1,5 +1,8 @@
 use std::f64::consts::PI;
 
+use crate::prelude::*;
+use bevy::ecs::world::Command;
+use bevy::prelude::{RegularPolygon, World};
 use bevy::{
     asset::Assets,
     core::Name,
@@ -7,9 +10,6 @@ use bevy::{
     sprite::{MaterialMesh2dBundle, Mesh2dHandle},
 };
 use engine_core::prelude::*;
-use bevy::ecs::world::Command;
-use bevy::prelude::{RegularPolygon, World};
-use crate::prelude::*;
 
 #[derive(Default)]
 pub struct Vessel {
@@ -83,7 +83,7 @@ impl Command for Vessel {
 
         let parent = match self.orbiting.is_some() {
             true  => world.resource_ref::<NameReg>().get(&self.orbiting.unwrap()).unwrap(),
-            false => world.resource_ref::<SpaceMap>().get_sun()
+            false => world.resource_ref::<StarSystem>().get_sun()
                 .expect("Can't place planet without Sun")
         };
 

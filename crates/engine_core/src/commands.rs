@@ -1,11 +1,12 @@
+use crate::prelude::NameReg;
 use bevy::ecs::world::Command;
 use bevy::prelude::{Commands, Entity, Name, World};
-use crate::prelude::NameReg;
 
 pub trait RenameEntity {
     fn rename(&mut self, ent: Entity, name: &str);
 }
 
+//noinspection RsExternalLinter
 impl<'w, 's> RenameEntity for Commands<'w, 's> {
     fn rename(&mut self, ent: Entity, name: &str) {
         self.add(Rename(ent, name.to_string()));

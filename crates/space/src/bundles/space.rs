@@ -1,19 +1,17 @@
-use bevy::{
-    prelude::*,
-    render::view::RenderLayers,
-    sprite::{MaterialMesh2dBundle, Mesh2dHandle},
-};
-
 use crate::{
     components::{
-        Body, Keplerian, Orbit, RefFrame, Space, SpaceDepth, SpacePos, StarMarker, StateVec,
+        Body, Keplerian, Orbit, RefFrame, SpaceDepth, SpaceLayer, SpacePos, StarMarker, StateVec,
         VesselMarker,
     },
     constants::{BODY_DEPTH, SPACE_LAYER, SPACE_SCALE},
     helpers::calculate_galactic_soi,
 };
-use engine_core::prelude::*;
-
+use bevy::{
+    prelude::*,
+    render::view::RenderLayers,
+    sprite::{MaterialMesh2dBundle, Mesh2dHandle},
+};
+use engine_core::components::naming::UniquelyNamed;
 #[derive(Bundle)]
 pub struct StarBundle {
     pub name: Name,
@@ -27,7 +25,7 @@ pub struct StarBundle {
     // markers
     pub depth: SpaceDepth,
     pub star: StarMarker,
-    pub space: Space,
+    pub space: SpaceLayer,
     pub uniquely: UniquelyNamed
 }
 
@@ -43,7 +41,7 @@ impl Default for StarBundle {
             body_params: Body::new(50000.0, 10000.0),
             depth: default(),
             star: StarMarker,
-            space: Space,
+            space: SpaceLayer,
             abs_pos: default(),
             uniquely: default(),
         }
@@ -93,7 +91,7 @@ pub struct CelestialBodyBundle {
     pub abs_pos: SpacePos,
 
     // markers
-    pub space: Space,
+    pub space: SpaceLayer,
     pub uniquely: UniquelyNamed
 }
 
@@ -128,7 +126,7 @@ pub struct VesselBundle {
     pub depth: SpaceDepth,
 
     // markers
-    pub space:  Space,
+    pub space: SpaceLayer,
     pub uniquely_named: UniquelyNamed,
     pub vessel: VesselMarker,
 }

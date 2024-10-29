@@ -24,13 +24,12 @@ impl Plugin for CamPlugin {
             let target = self.cam_target.clone().unwrap();
 
 
-            app.add_systems(PostStartup, move |mut query: Query<&mut FocusMode, With<Space>>| {
+            app.add_systems(PostStartup, move |mut query: Query<&mut FocusMode, With<SpaceLayer>>| {
                 query.iter_mut().for_each(|mut focus| {
                     *focus = FocusMode::Body(target.clone());
                 });
             });
         }
-
 
         app.add_systems(
                 PostUpdate,

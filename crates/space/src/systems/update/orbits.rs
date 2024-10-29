@@ -2,14 +2,14 @@ use bevy::prelude::*;
 use bevy_prototype_lyon::{prelude::*, shapes::Ellipse};
 
 use crate::{
-    components::{Keplerian, Space},
+    components::{Keplerian, SpaceLayer},
     constants::SPACE_SCALE,
     prelude::{DrawSpace, RestrictDraw},
     resources::OrbitBuffer,
 };
 
 pub fn update_strokes(
-    space_cams: Query<&OrthographicProjection, (Changed<OrthographicProjection>, With<Space>)>,
+    space_cams: Query<&OrthographicProjection, (Changed<OrthographicProjection>, With<SpaceLayer>)>,
     mut buf: ResMut<OrbitBuffer>,
     mut strokes: Query<Entity, (With<Stroke>, Without<RestrictDraw>)>,
 ) {

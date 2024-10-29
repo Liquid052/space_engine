@@ -1,6 +1,6 @@
-extern crate decay_engine;
 extern crate bevy;
 extern crate bevy_inspector_egui;
+extern crate decay_engine;
 
 use bevy::input::mouse::MouseWheel;
 use bevy::prelude::*;
@@ -13,6 +13,7 @@ fn main() {
             .enable_space()
             .set(SpacePlugin {
                 draw_enabled: true,
+                camera_enabled: true,
                 cam_background_enabled: true,
                 cam_target: Some("Kerbin".into()),
             })
@@ -28,6 +29,7 @@ fn main() {
 fn move_to_running(mut state: ResMut<NextState<AppState>>) {
     state.set(AppState::InGame { paused: false })
 }
+
 fn setup_space(mut commands: Commands) {
     commands.create_space("Test space");
     commands.space_cam_follow("Kerbin");
@@ -79,9 +81,12 @@ fn setup_space(mut commands: Commands) {
 
 fn mouse_wheel_zoom(
     mut evs: EventReader<MouseWheel>,
-    mut cam: Query<&mut OrthographicProjection, With<Space>>,
+    mut cam: Query<&mut OrthographicProjection, With<SpaceLayer>>,
 ) {
-    let mut orto = cam.single_mut();
+    let Ok(mut orto) = cam.get_single_mut() else {
+        return;
+    };
+
 
     evs.read().for_each(|ev| {
         match orto.scale {

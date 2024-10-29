@@ -1,4 +1,3 @@
-use bevy::prelude::*;
 use crate::{
     components::{Body, Keplerian, Orbit, RefFrame, SpaceDepth, SpacePos, StateVec},
     resources::SpaceTimeScale,
@@ -7,6 +6,7 @@ use crate::{
         *,
     },
 };
+use bevy::prelude::*;
 
 pub(super) struct PhysicsPlugin;
 
@@ -14,7 +14,7 @@ impl Plugin for PhysicsPlugin {
     fn build(&self, app: &mut App) {
         // resources
         app.insert_resource(SpaceTimeScale(3.0))
-            // resources
+            // reflections
             .register_type::<SpaceDepth>()
             .register_type::<SpaceTimeScale>()
             .register_type::<Keplerian>()

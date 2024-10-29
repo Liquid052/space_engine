@@ -1,4 +1,3 @@
-use bevy::prelude::*;
 use crate::{
     components::{Orbit, RefFrame, StateVec},
     prelude::*,
@@ -7,6 +6,7 @@ use crate::{
         ObjectParams, Objects,
     },
 };
+use bevy::prelude::*;
 
 type BodyP<'a> = (
     Entity,
@@ -142,6 +142,8 @@ fn body_params(objects: &mut [Objects], bodies: &mut [Bodies]) {
         .calculate_soi(bodies[0].1.mass, bodies[2].1.mass)
 }
 
+
+//noinspection RsExternalLinter
 fn redirect(ent: Entity,
             com: &mut Commands,
             frames: &Query<&RefFrame>,

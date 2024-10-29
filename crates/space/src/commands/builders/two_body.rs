@@ -1,12 +1,13 @@
+use crate::prelude::*;
+use bevy::ecs::world::Command;
 use bevy::{
     asset::Assets,
     prelude::*,
     sprite::{MaterialMesh2dBundle, Mesh2dHandle},
 };
-use bevy::ecs::world::Command;
-use engine_core::prelude::*;
 use bevy_prototype_lyon::entity::ShapeBundle;
-use crate::prelude::*;
+use engine_core::components::naming::UniquelyNamed;
+use engine_core::prelude::*;
 
 
 pub struct TwoBodyBuilder<T> {
@@ -101,7 +102,7 @@ impl Command for TwoBodyBuilder<BodyBuilder> {
                 ent
             }
             false => {
-                world.resource::<SpaceMap>().get_sun().expect("Attempted to add two body system where sun doesn't exist")
+                world.resource::<StarSystem>().get_sun().expect("Attempted to add two body system where sun doesn't exist")
             }
         };
 
@@ -257,7 +258,7 @@ impl Command for TwoBodyBuilder<BodyBuilder> {
         }
 
 
-        world.resource_mut::<SpaceMap>();
+        world.resource_mut::<StarSystem>();
         // space.planet_info.insert(ent, (name.clone(), mu, depth));
         // space.planet_info.insert(ent1, (self.body1.name.clone(), self.body1.mass, down));
         // space.planet_info.insert(ent2, (self.body2.name.clone(), self.body2.mass, down));

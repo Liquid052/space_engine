@@ -1,7 +1,7 @@
-use std::borrow::Cow;
+use crate::components::naming::UniquelyNamed;
 use bevy::core::Name;
-use bevy::prelude::{Bundle, default};
-use crate::components::UniquelyNamed;
+use bevy::prelude::{default, Bundle};
+use std::borrow::Cow;
 
 #[derive(Bundle, Default)]
 pub struct NameBundle {

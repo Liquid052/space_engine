@@ -1,0 +1,13 @@
+TagItem(
+    info: {
+        "name":        String("Grass"),
+        "description": String("A block of grass"),
+        "db_name":     String("grass"),
+
+        "type":        String("Block"),
+        "block_type":  String("Natural"),
+        "durability":  U8(10),
+
+        "img_path":    String("textures/grass.png"),
+    }
+)

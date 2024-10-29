@@ -1,32 +1,33 @@
 use std::f64::consts::PI;
 
-use bevy::{
-    prelude::*,
-    sprite::{MaterialMesh2dBundle, Mesh2dHandle},
-};
-use engine_core::prelude::*;
-use bevy::ecs::world::Command;
-use bevy_prototype_lyon::geometry::GeometryBuilder;
-use bevy_prototype_lyon::shapes;
+use crate::bundles::BeltBundle;
+use crate::helpers::calculate_galactic_soi;
+use crate::prelude::SpaceDepth;
 use crate::{
     bundles::{CelestialBodyBundle, StarBundle},
     components::*,
     constants::{BODY_DEPTH, SPACE_SCALE},
     prelude::{Belt, Body},
-    resources::SpaceMap,
+    resources::StarSystem,
 };
-use crate::bundles::BeltBundle;
-use crate::helpers::calculate_galactic_soi;
-use crate::prelude::SpaceDepth;
+use bevy::ecs::world::Command;
+use bevy::{
+    prelude::*,
+    sprite::{MaterialMesh2dBundle, Mesh2dHandle},
+};
+use bevy_prototype_lyon::geometry::GeometryBuilder;
+use bevy_prototype_lyon::shapes;
+use engine_core::prelude::*;
 
-#[derive(Default)]
+#[derive(Default, Clone, Reflect, Component)]
+#[reflect(Component)]
 pub struct Star {
-    name:   String,
-    mass:   f64,
-    radius: f64,
-    color:  Color,
+    pub name: String,
+    pub mass: f64,
+    pub radius: f64,
+    pub color: Color,
 
-    belts: Vec<(f64, f64, Color)>,
+    pub belts: Vec<(f64, f64, Color)>,
 }
 
 impl Star {
@@ -101,7 +102,7 @@ impl Command for Star {
         }).id();
 
 
-        world.resource_mut::<SpaceMap>().set_sun(ent);
+        world.resource_mut::<StarSystem>().set_sun(ent);
 
         // if no belts are required, return, otherwise install
         if self.belts.is_empty() {
@@ -229,7 +230,7 @@ impl Command for BodyBuilder {
 
         let parent = match self.orbiting.is_some() {
             true  => world.resource_ref::<NameReg>().get(&self.orbiting.unwrap()).unwrap(),
-            false => world.resource_ref::<SpaceMap>().get_sun()
+            false => world.resource_ref::<StarSystem>().get_sun()
                 .expect("Can't place planet without Sun")
         };
 
@@ -288,8 +289,7 @@ impl Command for BodyBuilder {
                 belt.add((*radius, *width, *col));
                 belt.entities.push(belt_id);
             });
-        
-        
+
         world.entity_mut(ent).insert(belt);
     }
 }
