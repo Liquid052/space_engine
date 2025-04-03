@@ -17,6 +17,7 @@ pub mod state_vectors;
 #[reflect(Component)]
 pub struct SpacePos(pub DVec2);
 
+/// Properties describing which celestial bodies and vessels are in its reference frame
 #[derive(Component, Reflect, Default, Clone, Debug)]
 #[reflect(Component)]
 pub struct RefFrame {

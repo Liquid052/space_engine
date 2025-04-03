@@ -7,6 +7,9 @@
 - Rust 2021 edition or later. You can install Rust using [rustup](https://rustup.rs/).
 - **Toolchains:** stable, nightly
 
+## Documentation
+resides in docs/space_engine/index.html
+
 ## Usage
 You can run example applications to see the engine in action. Each example showcases different capabilities of the engine.
 

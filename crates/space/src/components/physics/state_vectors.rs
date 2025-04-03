@@ -2,6 +2,7 @@ use bevy::{ecs::component::Component, math::DVec3, prelude::*};
 
 use crate::{helpers::*, prelude::*, TWO_PI};
 
+/// Current state vector of a celestial body determined by keplerian elements
 #[derive(Debug, Component, Reflect, Default, Clone, Copy)]
 #[reflect(Component)]
 pub struct StateVec {

@@ -7,6 +7,7 @@ use crate::{helpers::*, prelude::StateVec, PI, TWO_PI};
 
 pub const DEFAULT_INCLINATION: f64 = 0.0001;
 
+/// Properties describing a celestial body in a Keplerian orbit
 #[derive(Debug, Reflect, Component, Clone, Copy)]
 #[reflect(Component)]
 pub struct Keplerian {

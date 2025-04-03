@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 
+/// Properties describing a celestial body such as sphere of influence, its radius and mass
 #[derive(Reflect, Component, Default, Clone, Copy, Debug, PartialEq)]
 #[reflect(Component)]
 pub struct Body {
@@ -8,8 +9,11 @@ pub struct Body {
     pub mass:   f64,
 
     // two-body
+    #[doc(hidden)]
     pub reduced_mass: f64,
+    #[doc(hidden)]
     pub child1:       Option<Entity>,
+    #[doc(hidden)]
     pub child2:       Option<Entity>,
 }
 
@@ -47,9 +51,10 @@ impl Body {
     pub fn is_two_body(&self) -> bool { self.child1.is_some() && self.child2.is_some() }
 }
 
-#[doc(hidden)]
+
 #[derive(Reflect, Component, Default, Clone, Debug, PartialEq)]
 #[reflect(Component)]
+#[doc(hidden)]
 pub struct Belt {
     pub(crate) belts: Vec<(f64, f64, Color)>,
 

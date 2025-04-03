@@ -35,6 +35,7 @@ pub struct SOI;
 pub struct Dynamic;
 
 
+#[doc(hidden)]
 #[derive(Reflect, Component, Ord, PartialOrd, Eq, PartialEq, Clone, Copy, Debug, Default)]
 #[reflect(Component)]
 pub struct SpaceDepth(pub u8);

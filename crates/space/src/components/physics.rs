@@ -4,19 +4,19 @@ use bevy::{
     prelude::*,
 };
 
-// export
-pub use bodies::*;
-pub use keplerian::*;
-pub use state_vectors::*;
-
 mod bodies;
 pub mod keplerian;
 pub mod state_vectors;
 mod vessels;
 
-// double precision for accurate calculations
+// export
+pub use bodies::{Body,Belt, Exited};
+pub use keplerian::{Keplerian};
+pub use state_vectors::{StateVec};
+
 #[derive(Reflect, Component, Clone, Copy, Debug, Default, PartialEq, DerefMut, Deref)]
 #[reflect(Component)]
+/// Double precision position which is accurate through an entire solar system
 pub struct SpacePos(pub DVec2);
 
 #[derive(Component, Reflect, Default, Clone, Debug)]
