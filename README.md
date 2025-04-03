@@ -35,8 +35,6 @@ cargo run --example two_body
 #### core modules
 - **core_assets:** Manages loading, caching, and handling of game assets.
 - **core_camera:** Provides functionalities for camera controls and rendering perspectives.
-- **core_pack_objects:** Manages objects within the world space, handling entity serialization and deserialization of data.
-- **core_world_streaming:** Supports more complex form of level streaming, allowing main world to be divided into smaller chunks, forming a tree.
 
 #### Modules
 
