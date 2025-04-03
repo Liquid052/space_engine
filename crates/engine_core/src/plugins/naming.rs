@@ -2,6 +2,7 @@ use crate::components::naming::UniquelyNamed;
 use crate::prelude::*;
 use bevy::prelude::*;
 
+#[doc(hidden)]
 pub struct NamingPlugin;
 
 impl Plugin for NamingPlugin {

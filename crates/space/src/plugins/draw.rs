@@ -29,7 +29,7 @@ impl Plugin for DrawPlugin {
         )
         // soi
         .add_systems(
-            PostUpdate,
+            Last,
             update_soi_outline
                 .in_set(SpaceSystemSet::UpdateDraw)
                 .after(install_soi_outline),

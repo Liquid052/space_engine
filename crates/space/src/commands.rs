@@ -9,9 +9,11 @@ mod builders;
 // export
 pub use builders::*;
 
-// api
+/// Commands for the space module
 pub trait SpaceCommandsExt {
+    /// creates a new space
     fn create_space(&mut self, name: &str);
+    /// defines which celestial body the camera should follow
     fn space_cam_follow(&mut self, name: &str);
 }
 
@@ -39,7 +41,7 @@ impl Command for CreateSpaceCommand {
 }
 impl Command for SpaceCamFollow {
     fn apply(self, world: &mut World) {
-        let mut query = world.query_filtered::<&mut FocusMode, (With<Camera>, With<SpaceLayer>)>();
+        let mut query = world.query_filtered::<&mut FocusMode, (With<Camera>)>();
         
         let Ok(mut focus_mode) = query.get_single_mut(world) else {
             return;

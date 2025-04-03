@@ -1,17 +1,18 @@
 extern crate bevy;
 extern crate bevy_inspector_egui;
-extern crate decay_engine;
+extern crate space_engine;
 
 use bevy::input::mouse::MouseWheel;
 use bevy::prelude::*;
 use bevy_inspector_egui::quick::{ResourceInspectorPlugin, WorldInspectorPlugin};
-use decay_engine::prelude::*;
+use space_engine::prelude::*;
 
 fn main() {
     App::new()
         .add_plugins(EnginePlugin::new("SpaceApp")
             .enable_space()
             .set(SpacePlugin {
+                auto_soi_update: true,
                 draw_enabled: true,
                 camera_enabled: true,
                 cam_background_enabled: true,

@@ -4,8 +4,10 @@ use bevy_asset_loader::prelude::{ConfigureLoadingState, LoadingStateAppExt, Load
 use crate::prelude::LoadingStates;
 
 
+///The `CollectionLoadingExt` trait extends the Bevy `App` structure with methods for loading asset collections. It provides two methods:
+///- `load_core_collection<A: AssetCollection>(&mut self) -> &mut Self`: Configures the loading state to load core assets before the loading screen.
+///- `load_collection<A: AssetCollection>(&mut self) -> &mut Self`: Configures the loading state to load additional asset collections.
 pub trait CollectionLoadingExt {
-    // For loading asset collections before loading screen
     fn load_core_collection<A: AssetCollection>(&mut self) -> &mut Self;
     fn load_collection<A: AssetCollection>(&mut self) -> &mut Self;
 }

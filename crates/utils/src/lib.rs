@@ -1,3 +1,5 @@
+#[doc(hidden)]
 pub mod systems;
-pub mod plugins;
+pub mod plugin;
+#[doc(hidden)]
 pub mod prelude;

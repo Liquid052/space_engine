@@ -6,11 +6,11 @@ use std::fmt::Debug;
 #[reflect(Component)]
 pub struct SpaceLayer;
 
-impl SceneLayerHandler for SpaceLayer {
-    fn save(&self, _path: &SceneNode, _cfg: &Config, _world: &mut World) {}
+// impl SceneLayerHandler for SpaceLayer {
+//     fn save(&self, _path: &SceneNode, _cfg: &Config, _world: &mut World) {}
 
-    fn load(&self, _path: &SceneNode, _cfg: &Config, _world: &mut World) {}
-}
+    // fn load(&self, _path: &SceneNode, _cfg: &Config, _world: &mut World) {}
+// }
 
 #[derive(Reflect, Component, Clone, Copy, Debug, Default)]
 #[reflect(Component)]
@@ -33,7 +33,7 @@ pub struct SOI;
 #[reflect(Component)]
 pub struct Dynamic;
 
-
+#[doc(hidden)]
 #[derive(Reflect, Component, Ord, PartialOrd, Eq, PartialEq, Clone, Copy, Debug, Default)]
 #[reflect(Component)]
 pub struct SpaceDepth(pub u8);

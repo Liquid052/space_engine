@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 
 
+/// A resource that holds the current star system name and the sun entity.
 #[derive(Debug, Default, Resource)]
 pub struct StarSystem {
     pub(crate) system_name: String,
@@ -19,6 +20,7 @@ impl StarSystem {
     pub fn get_sun(&self) -> Option<Entity> { self.sun }
 }
 
+/// A resource that holds the current time scale for the simulation.
 #[derive(Resource, Reflect, Component, Debug, Deref, DerefMut)]
 #[reflect(Resource)]
 pub struct SpaceTimeScale(pub f64);
@@ -27,6 +29,7 @@ impl Default for SpaceTimeScale {
     fn default() -> Self { Self(1.0) }
 }
 
+#[doc(hidden)]
 #[derive(Resource, Default)]
 pub struct OrbitBuffer {
     pub(crate) current: f32,

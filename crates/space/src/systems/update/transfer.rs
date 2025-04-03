@@ -29,14 +29,7 @@ type ObjectParams<'a> = (
 );
 type BodyParams<'a> = (&'a mut RefFrame, &'a mut Body);
 
-type Objects<'a> = (
-    Entity,
-    Mut<'a, Keplerian>,
-    Mut<'a, StateVec>,
-    &'a Name,
-    Option<Mut<'a, DrawSpace>>,
-);
-type Bodies<'a> = (Mut<'a, RefFrame>, Mut<'a, Body>);
+
 
 // helper functions
 fn iter_children(
@@ -65,10 +58,20 @@ fn orbit(objects: &mut [Objects], parent_mass: f64, orbit: &mut Orbit) {
     orbit.parent = new_parent;
 }
 
+type Objects<'a> = (
+    Entity,
+    Mut<'a, Keplerian>,
+    Mut<'a, StateVec>,
+    &'a Name,
+    Option<Mut<'a, DrawSpace>>,
+);
+type Bodies<'a> = (Mut<'a, RefFrame>, Mut<'a, Body>);
+
 fn recalculate_keplerian(bodies: &mut [Objects], parent_mass: f64, up: bool) {
     let st_vec1 = *bodies[0].2;
     let parent = if up { 1 } else { 2 };
     let st_vec2 = *bodies[parent].2;
+    // pokud vstupujeme nebo opoustime sferu vlivu, je dulezite odecist nebo pridat relativni pozici a rychlost
     let mul = if up { 1.0 } else { -1.0 };
 
     let new_st_vec = StateVec {

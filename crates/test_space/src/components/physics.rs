@@ -71,7 +71,7 @@ pub struct Orbit {
 impl Default for Orbit {
     fn default() -> Self {
         Self {
-            parent: Entity::from_raw(0),
+            parent: Entity::PLACEHOLDER,
             epoch: Default::default(),
             period: Default::default(),
         }

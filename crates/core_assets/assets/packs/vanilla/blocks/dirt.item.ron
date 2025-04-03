@@ -1,9 +1,0 @@
-TagItem(
-    info: {
-        "name":        String("Dirt"),
-        "db_name":     String("dirt"),
-        "type":        String("Block"),
-        "description": String("A block of dirt"),
-        "img_path":    String("textures/def_img.png"),
-    }
-)

@@ -8,15 +8,16 @@ use bevy::window::WindowPlugin;
 use bevy::DefaultPlugins;
 use bevy_asset_loader::prelude::{AssetCollection, ConfigureLoadingState, LoadingStateAppExt, LoadingStateConfig};
 use engine_core::prelude::CoreEnginePlugin;
-use galaxy::plugins::GalaxyPlugin;
 use space::plugins::SpacePlugin;
-use utils::plugins::UtilityPlugins;
+use utils::plugin::UtilityPlugins;
 
 // entry point
 #[derive(Default)]
 pub struct EnginePlugin {
-    name: String,
-    enable_space: bool,
+    pub name:             String,
+    pub enable_space:     bool,
+
+    #[doc(hidden)]
     loader_injection: LoaderInjection,
 }
 
@@ -63,7 +64,7 @@ impl PluginGroup for EnginePlugin {
     fn build(self) -> PluginGroupBuilder {
         let mut group = PluginGroupBuilder::start::<Self>()
             .add_group(DefaultPlugins)
-            .add(CoreEnginePlugin::new())
+            .add(CoreEnginePlugin::default())
             .add(self.loader_injection);
 
         group = group.set(WindowPlugin {
@@ -81,11 +82,11 @@ impl PluginGroup for EnginePlugin {
                 draw_enabled: true,
                 camera_enabled: false,
                 cam_background_enabled: false,
+                auto_soi_update: false,
                 cam_target: None,
             });
         }
-
-        group = group.add(GalaxyPlugin);
+        
         group
     }
 }

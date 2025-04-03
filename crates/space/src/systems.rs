@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-
+use engine_core::prelude::Running;
 pub use last::*;
 pub use orbits::*;
 pub use physics::*;
@@ -13,17 +13,19 @@ mod post_update;
 mod run_conditions;
 mod update;
 
+/// System sets defining the order of execution for the space plugin.
 #[derive(SystemSet, Debug, Clone, Hash, PartialEq, Eq, PartialOrd, Ord)]
 pub enum SpaceSystemSet {
-    // update
+    /// Update
     Physics,
+    /// Update
     Transfers,
 
-    // post-update
+    /// PostUpdate
     InstallDraw,
+    /// PostUpdate
     UpdateDraw,
-    // cam plugin
-    // post-update
+    /// PostUpdate
     Camera,
 }
 

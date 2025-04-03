@@ -1,4 +1,5 @@
 mod bodies;
+#[doc(hidden)]
 mod two_body;
 mod vessels;
 

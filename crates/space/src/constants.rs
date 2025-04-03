@@ -16,7 +16,6 @@ pub const ORBIT_DEPTH: f32 = 0.5;
 
 /// Layer that is reserved for space rendering
 pub const SPACE_LAYER: RenderLayers = RenderLayers::layer(SPACE_LAYER_DEPTH);
-/// used for [SPACE_LAYER]
 pub const SPACE_LAYER_DEPTH: Layer = 13;
 
 // export

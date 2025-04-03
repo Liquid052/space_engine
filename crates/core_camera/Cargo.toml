@@ -2,6 +2,7 @@
 name = "core_camera"
 version = "0.1.0"
 edition = "2021"
+publish = true
 
 [dependencies]
 bevy.workspace = true

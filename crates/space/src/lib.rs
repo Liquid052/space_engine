@@ -1,3 +1,13 @@
+//! This plugin provides functionalities for simulating and rendering celestial mechanics in a game or application.
+//!
+//! ## Features
+//!
+//! - **Orbital Transfers**: Calculate and execute orbital transfers between celestial bodies, allowing for realistic space travel mechanics.
+//!
+//! - **Rendering**: Render celestial bodies and their orbits in a visually appealing manner, integrating with Bevy's rendering system.
+//!
+//! - **Camera Tracking**: Track and follow celestial bodies with the camera, providing an immersive experience as players navigate through space.
+
 #![allow(non_snake_case)]
 use constants::{PI, TWO_PI};
 
@@ -5,16 +15,25 @@ pub(crate) mod helpers;
 pub(crate) mod systems;
 
 pub mod components;
+
 pub mod constants;
 pub mod resources;
 pub mod commands;
 pub mod plugins;
+
+#[doc(hidden)]
 pub mod bundles;
+
+#[doc(hidden)]
 pub mod events;
 
 // export
+#[doc(hidden)]
 pub mod prelude;
 
+pub use systems::SpaceSystemSet;
+
+#[doc(hidden)]
 #[cfg(test)]
 mod tests {
     use bevy::math::{dvec3, DVec3};

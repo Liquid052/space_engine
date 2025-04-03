@@ -1,5 +1,5 @@
 [package]
-name = "decay_engine"
+name = "space_engine"
 version = "0.2.5"
 readme = "README.md"
 edition = "2021"
@@ -17,30 +17,22 @@ codegen-units = 1
 lto = "thin"
 
 
-## linker
-[target.x86_64-pc-windows-msvc]
-linker = "rust-lld.exe"
-rustflags = [
-    # Nightly
-    "-Zshare-generics=y",
-    #     "-Zthreads=0",
-]
+
 
 [workspace]
 resolver = "2"
 members = [
 # abstraction over asset management. Similiar to resource location [https://minecraft.wiki/w/Resource_location]
     "crates/core_assets",
-# for describing data which cannot be serialized, like assets
-    "crates/core_pack_objects",
-    "crates/core_world_streaming",
+    "crates/core_internal",
     "crates/core_camera",
+    "crates/core_utils",
     "crates/engine_core",
     "crates/test_space",
     "crates/space",
-    "crates/galaxies",
-    "crates/engine"
+    "crates/engine",
 ]
+
 
 
 
@@ -62,20 +54,23 @@ bevy-inspector-egui.workspace = true
 
 
 [workspace.dependencies]
-walkdir             = "2.5.0"
-iyes_progress = "0.12.0"
-
-bevy_asset_loader   = { version = "0.21.0", features = ["2d", "progress_tracking"]}
 bevy = { version = "^0.14.2", features = ["file_watcher", "dynamic_linking", "serialize"] }
-bevy_mod_scripting  = { version = "0.6.0", features = ["luajit52"] }
-bevy_prototype_lyon = "0.12.0"
-iyes_perf_ui        = "0.3.0"
-itertools           = "0.13.0"
+# bevy related
+bevy_asset_loader   = { version = "0.21.0", features = ["2d", "progress_tracking"]}
 bevy_common_assets  = { version = "0.11.0",  features = ["ron"] }
+bevy_prototype_lyon = "0.12.0"
 bevy-inspector-egui = "0.27.0"
+iyes_progress       = "0.12.0"
+# misc
+bimap = "0.6.3"
 serde               = "1.0.164"
+itertools           = "0.13.0"
 ron                 = "0.8.1"
-
+walkdir             = "2.5.0"
+# old versions
+#iyes_perf_ui        = "0.3.0"
+#bevy_mod_scripting  = { version = "0.6.0", features = ["luajit52"] }
+#avian2d             = "0.1.2"
 
 [workspace.lints.clippy]
 doc_markdown = "warn"
@@ -111,6 +106,10 @@ path = "examples/core/naming.rs"
 name = "streaming"
 path = "examples/core/streaming.rs"
 
+[[example]]
+name = "generation"
+path = "examples/core/generation.rs"
+
 
 # Space
 [[example]]
@@ -127,6 +126,10 @@ path = "examples/space/two_body.rs"
 [[example]]
 name = "galaxy"
 path = "examples/galaxy/main.rs"
+
+[[example]]
+name = "block"
+path = "examples/block/block_test.rs"
 
 
 

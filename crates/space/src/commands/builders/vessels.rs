@@ -11,6 +11,7 @@ use bevy::{
 };
 use engine_core::prelude::*;
 
+/// Builder command for creating a vessel
 #[derive(Default)]
 pub struct Vessel {
     name:     String,
@@ -26,7 +27,7 @@ pub struct Vessel {
 pub type SpaceShip = Vessel;
 
 impl Vessel {
-    // constructors
+    /// Creates a new `Vessel` instance with a specified name and default values for other properties.
     pub fn new(name: impl Into<String>) -> Self {
         Self {
             name: name.into(),
@@ -34,36 +35,43 @@ impl Vessel {
         }
     }
 
+    /// Sets the color of the vessel and returns the builder instance.
     pub fn color(mut self, color: Color) -> Self {
         self.color = color;
         self
     }
 
+    /// Sets the celestial body that this vessel will orbit and returns the builder instance.
     pub fn orbiting(mut self, orbiting: impl Into<String>) -> Self {
         self.orbiting = Some(orbiting.into());
         self
     }
 
+    /// Sets the eccentricity of the vessel's orbit and returns the builder instance.
     pub fn eccentricity(mut self, eccentricity: f64) -> Self {
         self.eccentricity = eccentricity;
         self
     }
 
+    /// Sets the semi-major axis of the vessel's orbit and returns the builder instance.
     pub fn semi_major_axis(mut self, semi_major_axis: f64) -> Self {
         self.semi_major_axis = semi_major_axis;
         self
     }
 
+    /// Sets the argument of periapsis for the vessel's orbit and returns the builder instance.
     pub fn argument_of_periapsis(mut self, argument_of_periapsis: f64) -> Self {
         self.argument_of_periapsis = argument_of_periapsis;
         self
     }
 
+    /// Sets the mean anomaly at epoch for the vessel's orbit and returns the builder instance.
     pub fn mean_anomaly_at_epoch(mut self, mean_anomaly_at_epoch: f64) -> Self {
         self.mean_anomaly_at_epoch = mean_anomaly_at_epoch;
         self
     }
 
+    /// Sets whether the vessel orbits in a reversed direction and returns the builder instance.
     pub fn reversed_orbit(mut self, reversed_orbit: bool) -> Self {
         self.reversed_orbit = reversed_orbit;
         self
@@ -116,9 +124,7 @@ impl Command for Vessel {
             ..default()
         }).id();
 
-
         // update parent
         world.get_mut::<RefFrame>(parent).unwrap().push_vessel(ent);
     }
 }
-

@@ -8,7 +8,8 @@ edition = "2021"
 bevy_asset_loader.workspace = true
 engine_core     = { path = "../engine_core" }
 space           = { path = "../space"}
-galaxy = { path = "../galaxies" }
+#galaxy = { path = "../galaxies" }
+#blocks = {path = "../blocks"}
 utils = { path = "../utils" }
 bevy.workspace  = true
 

@@ -1,4 +1,4 @@
-use bevy::prelude::{default, Changed, Query, Without};
+use bevy::prelude::{default, info, Changed, Query, Without};
 use bevy_prototype_lyon::{entity::Path, geometry::GeometryBuilder};
 
 use crate::{
@@ -23,4 +23,22 @@ pub fn update_soi_outline(
 
         *path.get_mut(soi).unwrap() = GeometryBuilder::build_as(&circle);
     });
+
+}
+
+pub fn update_soi_outline_auto(
+    bodies: Query<BodiesWithSoi, (Without<Restricted>, Without<StarMarker>)>,
+    mut path: Query<&mut Path>,
+) {
+    bodies.iter().for_each(|(body_p, ref_frame)| {
+        let soi = ref_frame.soi.unwrap();
+
+        let circle = bevy_prototype_lyon::shapes::Circle {
+            radius: (body_p.soi / SPACE_SCALE) as f32,
+            ..default()
+        };
+
+        *path.get_mut(soi).unwrap() = GeometryBuilder::build_as(&circle);
+    });
+
 }

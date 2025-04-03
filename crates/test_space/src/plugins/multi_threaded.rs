@@ -1,9 +1,9 @@
 use crate::plugins::physics::PhysicsPlugin;
 use bevy::prelude::*;
 
-pub struct MultithreadedSpacePlugin;
+pub struct SOASpacePlugin;
 
-impl Plugin for MultithreadedSpacePlugin {
+impl Plugin for SOASpacePlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins(PhysicsPlugin);
     }

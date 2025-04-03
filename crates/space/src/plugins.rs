@@ -1,6 +1,5 @@
 use bevy::core_pipeline::tonemapping::Tonemapping;
 use bevy::prelude::*;
-use iyes_perf_ui::PerfUiPlugin;
 
 use cam::*;
 use draw::*;
@@ -22,11 +21,13 @@ mod cam;
 mod draw;
 mod physics;
 
+/// Plugin for the space simulation, including camera management and rendering
 pub struct SpacePlugin {
     pub draw_enabled: bool,
     pub camera_enabled: bool,
     pub cam_background_enabled: bool,
     pub cam_target: Option<String>,
+    pub auto_soi_update: bool,
 }
 
 impl Default for SpacePlugin {
@@ -34,7 +35,7 @@ impl Default for SpacePlugin {
 }
 
 impl SpacePlugin {
-    pub fn new() -> Self { Self { draw_enabled: true, camera_enabled: false, cam_background_enabled: false, cam_target: None } }
+    pub fn new() -> Self { Self { draw_enabled: true, camera_enabled: false, cam_background_enabled: false, cam_target: None, auto_soi_update: false } }
 
     pub fn disable_draw(mut self) -> Self {
         self.draw_enabled = false;
@@ -54,14 +55,29 @@ impl Plugin for SpacePlugin {
                 cam_target: self.cam_target.clone(),
             });
         }
+        app.add_systems(
+            PostUpdate,
+            (
+                update_cam_enabled,
+                handle_camera_target.run_if(on_event::<CamTargetEv>()),
+                cam_follow,
+                scale_camera_background,
+                map_pos_transforms,
+            )
+                .chain()
+                .in_set(SpaceSystemSet::Camera),
+        );
 
+        if self.auto_soi_update {
+            app.add_systems(PostUpdate, update_soi_outline_auto);
+        }
+        
         if self.draw_enabled {
             app.add_plugins(DrawPlugin);
         }
 
         // diagnostics
-        app.add_plugins(PerfUiPlugin)
-            .register_type::<Star>()
+        app.register_type::<Star>()
             // resources
             .init_resource::<StarSystem>()
             // events
@@ -75,13 +91,15 @@ impl Plugin for SpacePlugin {
             )
             .add_systems(Last, cleanup_restrictions)
             .camera_manager()
-            .config_layer(CamLayerConfig::new(SpaceLayer)
-                .clamp_zoom(0.1, 1000.0)
-                .enable_hdr()
-                .tone_mapping(Tonemapping::AcesFitted)
-                .render_layer(SPACE_LAYER)
-                .depth(100.0)
-            )
-            .app();
+                .config_layer(CamLayerConfig::new(SpaceLayer)
+                    .clamp_zoom(0.1, 1000.0)
+                    .enable_hdr()
+                    .tone_mapping(Tonemapping::AcesFitted)
+                    .render_layer(SPACE_LAYER)
+                    .depth(100.0)
+                );
+                
+            // .scene_layer(SceneLayerConfig::new(SpaceLayer))
+            // .scene_generator(SpaceLayer);
     }
 }

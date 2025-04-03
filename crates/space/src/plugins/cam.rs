@@ -19,7 +19,7 @@ impl Plugin for CamPlugin {
             true => { app.add_systems(Startup, spawn_cam_with_background);}
         }
 
-
+       
         if self.cam_target.is_some() {
             let target = self.cam_target.clone().unwrap();
 
@@ -31,17 +31,6 @@ impl Plugin for CamPlugin {
             });
         }
 
-        app.add_systems(
-                PostUpdate,
-                (
-                    update_cam_enabled,
-                    handle_camera_target.run_if(on_event::<CamTargetEv>()),
-                    cam_follow,
-                    scale_camera_background,
-                    map_pos_transforms,
-                )
-                    .chain()
-                    .in_set(SpaceSystemSet::Camera),
-            );
+       
     }
 }

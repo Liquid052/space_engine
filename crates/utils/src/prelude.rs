@@ -1,2 +1,2 @@
-pub use crate::plugins::*;
+pub use crate::plugin::*;
 pub use crate::systems::*;

@@ -14,6 +14,7 @@ pub struct Body {
 }
 
 /// for special cases where SOI is recalculated. Works as a marker that skips checks for orbital transfers
+#[doc(hidden)]
 #[derive(Reflect, Component, Clone, Copy, Debug, PartialEq, DerefMut, Deref)]
 #[reflect(Component)]
 pub struct Exited(pub Entity);
@@ -46,6 +47,7 @@ impl Body {
     pub fn is_two_body(&self) -> bool { self.child1.is_some() && self.child2.is_some() }
 }
 
+#[doc(hidden)]
 #[derive(Reflect, Component, Default, Clone, Debug, PartialEq)]
 #[reflect(Component)]
 pub struct Belt {

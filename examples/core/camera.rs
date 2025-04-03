@@ -7,28 +7,30 @@ use bevy::core_pipeline::tonemapping::Tonemapping;
 use bevy::prelude::*;
 use bevy::render::view::RenderLayers;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
-use engine::galaxy::constants::GALAXY_LAYER;
 use engine::prelude::*;
+
+#[derive(Component, Default)]
+struct PlanetLayer;
 
 //noinspection RsExternalLinter
 fn main() {
     App::new()
-        .add_plugins(EnginePlugin::new("naming test"))
+        .add_plugins(EnginePlugin::new("Camera test"))
         .add_plugins(WorldInspectorPlugin::new())
         // camera
         .camera_manager()
-        .clear_color(BLACK)
-        .config_layer(CamLayerConfig::new(SpaceLayer)
-            .clamp_zoom(0.1, 1000.0)
-            .enable_hdr()
-            .tone_mapping(Tonemapping::AcesFitted)
-            .render_layer(GALAXY_LAYER)
-            .depth(100.0)
+        .clear_color(PURPLE)
+        .config_layer(CamLayerConfig::new(SpaceLayer) // Configure SpaceLayer
+                          .clamp_zoom(0.1, 1000.0) // Set zoom limits for the camera
+                          .enable_hdr() // Enable HDR rendering
+                          .tone_mapping(Tonemapping::AcesFitted) // Set tonemapping method
+                          .render_layer(RenderLayers::layer(0)) // Set render layer
+                          .depth(100.0) // Set layer depth
         )
-        .config_layer(CamLayerConfig::new(GalaxyLayer)
-            .render_layer(SPACE_LAYER)
-            .clamp_zoom(0.1, 1000.0)
-            .depth(100.0)
+        .config_layer(CamLayerConfig::new(PlanetLayer) // Configure PlanetLayer
+                          .render_layer(SPACE_LAYER) // Set render layer
+                          .clamp_zoom(0.1, 1000.0) // Set zoom limits for the camera
+                          .depth(100.0) // Set layer depth
         )
         .app()
         .add_systems(Startup, setup)

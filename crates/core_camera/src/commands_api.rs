@@ -4,6 +4,11 @@ use bevy::prelude::{error, Commands, Component, World};
 use std::any::{type_name, TypeId};
 use std::marker::PhantomData;
 
+/// Switch the current camera layer to a new layer.
+///
+/// # Parameters
+/// - `commands`: The command buffer to modify the camera layer.
+/// - `marker`: The new camera layer to switch to.
 pub trait CameraManagementExt<'w, 's> {
     fn set_camera_layer<T: Component>(&mut self, marker: T) -> &mut Commands<'w, 's>;
 }
@@ -17,6 +22,7 @@ impl<'w, 's> CameraManagementExt<'w, 's> for Commands<'w, 's> {
     }
 }
 
+#[doc(hidden)]
 struct SetCameraLayer<T: Component>(PhantomData<T>);
 
 impl<T: Component> Command for SetCameraLayer<T> {

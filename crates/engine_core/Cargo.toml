@@ -5,10 +5,12 @@ edition = "2021"
 
 
 [dependencies]
-core_pack_objects = { path = "../core_pack_objects" }
+#core_pack_objects = { path = "../core_pack_objects" }
 core_assets       = { path = "../core_assets" }
-core_world_streaming = { path = "../core_world_streaming" }
+#core_world_streaming = { path = "../core_world_streaming" }
+#core_world_generation = { path = "../core_world_generation" }
 core_camera = { path = "../core_camera" }
+core_utils = { path = "../core_utils" }
 bevy.workspace                = true
 bevy-inspector-egui.workspace = true
 bevy_common_assets.workspace  = true

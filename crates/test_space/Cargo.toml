@@ -5,9 +5,12 @@ edition = "2021"
 
 [dependencies]
 engine_core = { path = "../engine_core" }
-bevy = "0.14.2"
+bevy.workspace = true
+soa-rs = "0.7.2"
+divan = "0.1.16"
 
 [dev-dependencies]
+divan = "0.1.16"
 bevy-inspector-egui.workspace = true
 
 
@@ -15,3 +18,13 @@ bevy-inspector-egui.workspace = true
 default = ["f32"]
 f32 = []
 f64 = []
+
+[[bench]]
+name = "array_of_structs"
+path = "benches/arrays_of_structs/main.rs"
+harness = false
+
+[[bench]]
+name = "struct_of_arrays"
+path = "benches/struct_of_arrays/main.rs"
+harness = false

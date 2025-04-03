@@ -9,7 +9,7 @@ use bevy_prototype_lyon::entity::ShapeBundle;
 use engine_core::components::naming::UniquelyNamed;
 use engine_core::prelude::*;
 
-
+#[doc(hidden)]
 pub struct TwoBodyBuilder<T> {
     body1: T,
     body2: T,

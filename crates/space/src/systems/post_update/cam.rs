@@ -29,6 +29,7 @@ pub fn spawn_cam_with_background(mut commands: Commands, server: Res<AssetServer
             bloom,
             SPACE_LAYER,
             SpaceLayer,
+            MainCamera,
             SpacePos::default(),
         ))
         .with_children(|ch_b| {
@@ -60,13 +61,14 @@ pub fn spawn_cam(mut commands: Commands) {
             bloom,
             SPACE_LAYER,
             SpaceLayer,
+            MainCamera,
             SpacePos::default(),
         ));
 }
 
 pub fn handle_camera_target(
     mut reader: EventReader<CamTargetEv>,
-    mut cam: Query<&mut FocusMode, (With<Camera>, With<SpaceLayer>)>,
+    mut cam: Query<&mut FocusMode, (With<Camera>, With<MainCamera>)>,
 ) {
     let Ok(mut focus) = cam.get_single_mut() else {
         return;
@@ -81,8 +83,8 @@ pub fn handle_camera_target(
 
 pub fn cam_follow(
     name_reg: Res<NameReg>,
-    mut cameras: Query<(&mut SpacePos, &FocusMode), With<Camera>>,
-    transforms: Query<&SpacePos, Without<Camera>>,
+    mut cameras: Query<(&mut SpacePos, &FocusMode), With<MainCamera>>,
+    transforms: Query<&SpacePos, Without<MainCamera>>,
     space: Res<StarSystem>,
 ) {
     cameras
@@ -115,7 +117,7 @@ pub fn update_cam_enabled(mut query: Query<EnabledCams, (With<SpaceLayer>, Chang
 }
 
 pub fn scale_camera_background(
-    cams: Query<CamsChildren, (With<SpaceLayer>, Changed<OrthographicProjection>)>,
+    cams: Query<CamsChildren, (With<MainCamera>, Changed<OrthographicProjection>)>,
     mut background: Query<&mut Transform>,
 ) {
     cams.iter().for_each(|(orto, child)| {
@@ -133,7 +135,7 @@ pub fn scale_camera_background(
 }
 
 pub fn map_pos_transforms(
-    cam: Query<&SpacePos, (With<SpaceLayer>, With<Camera>)>,
+    cam: Query<&SpacePos, (With<MainCamera>, With<Camera>)>,
     mut bodies: Query<(&mut Transform, &SpacePos)>,
 ) {
     let cam_abs = cam.single();
