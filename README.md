@@ -1,6 +1,6 @@
-# Decay Engine
+# Space engine
 
-**Decay Engine** is a game engine focused on creating and managing space games. The project includes various modules (crates) for handling assets handling, camera management, level streaming, and the simulation.
+**Space engine** is a game engine focused on creating and managing space games. The project includes various modules (crates) for handling assets handling, camera management and the simulation.
 
 
 ## Requirements
