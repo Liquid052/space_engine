@@ -6,11 +6,6 @@ pub struct Body {
     pub soi: f64,
     pub radius: f64,
     pub mass: f64,
-
-    // two-body
-    pub reduced_mass: f64,
-    pub child1: Option<Entity>,
-    pub child2: Option<Entity>,
 }
 
 /// for special cases where SOI is recalculated. Works as a marker that skips checks for orbital transfers
@@ -26,9 +21,6 @@ impl Body {
             soi: 0.0,
             radius,
             mass,
-            reduced_mass: 0.0,
-            child1: None,
-            child2: None,
         }
     }
 

@@ -7,14 +7,6 @@ pub struct Body {
     pub soi:    f64,
     pub radius: f64,
     pub mass:   f64,
-
-    // two-body
-    #[doc(hidden)]
-    pub reduced_mass: f64,
-    #[doc(hidden)]
-    pub child1:       Option<Entity>,
-    #[doc(hidden)]
-    pub child2:       Option<Entity>,
 }
 
 // for special cases where SOI is recalculated. Works as a marker that skips checks for orbital transfers
@@ -30,9 +22,6 @@ impl Body {
             soi: 0.0,
             radius,
             mass,
-            reduced_mass: 0.0,
-            child1: None,
-            child2: None,
         }
     }
 
@@ -47,8 +36,6 @@ impl Body {
 
         smaller_mass / absolute_difference
     }
-
-    pub fn is_two_body(&self) -> bool { self.child1.is_some() && self.child2.is_some() }
 }
 
 

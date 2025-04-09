@@ -17,6 +17,7 @@ fn main() {
                 camera_enabled: true,
                 cam_background_enabled: true,
                 cam_target: Some("Kerbin".into()),
+                test: false
             })
         )
         .add_plugins(WorldInspectorPlugin::new())

@@ -105,15 +105,6 @@ pub fn handle_body_transfer(
         // clear old orbit
         update_orbit_if_exists(&mut commands, old_parent, new_parent, name, &mut objects);
 
-        // update depth
-        if bodies[0].1.is_two_body() {
-            let ent0 = bodies[0].1.child1.unwrap();
-            let ent1 = bodies[0].1.child2.unwrap();
-
-            // new
-            depth.get_mut(ent0).unwrap().redirect(up);
-            depth.get_mut(ent1).unwrap().redirect(up);
-        }
         
         let mut frames_lens = bodies_q.transmute_lens::<&RefFrame>();
         let frames = frames_lens.query();

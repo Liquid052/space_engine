@@ -66,31 +66,7 @@ pub fn update_restricted_orbits(
         .for_each(|(ent, mut state_vec, keplerian, orbiting)| {
             let parent = orbiting.parent();
 
-            let parent = masses.get(parent).unwrap();
 
-            let second = if parent.child1.unwrap() == ent {
-                parent.child2.unwrap()
-            } else {
-                parent.child1.unwrap()
-            };
-
-            if masses.get(ent).unwrap().mass < masses.get(second).unwrap().mass {
-                *state_vec = keplerian.state_vectors_at_epoch(
-                    parent.reduced_mass,
-                    orbiting.epoch,
-                    2.220_446_049_250_313e-10,
-                );
-            } else {
-                let orbit2 = orbits.get(second).unwrap().0;
-                let percentage = orbit2.epoch / orbit2.period;
-                let time = percentage * orbiting.period;
-
-                *state_vec = keplerian.state_vectors_at_epoch(
-                    parent.reduced_mass,
-                    time,
-                    2.220_446_049_250_313e-10,
-                );
-            }
 
             // if orbit bugs - try to check restrictions related to 3D going to 2D
             state_vec.position.z = 0.0;

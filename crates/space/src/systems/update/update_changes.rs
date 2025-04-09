@@ -9,11 +9,6 @@ pub fn update_period(
     changed.par_iter_mut().for_each(|(keplerian, mut orbit)| {
         let parent_body = bodies.get(orbit.parent()).unwrap();
 
-        if parent_body.is_two_body() {
-            orbit.period = keplerian.period(parent_body.reduced_mass);
-            return;
-        }
-
         orbit.period = keplerian.period(parent_body.mass);
     });
 }
