@@ -7,5 +7,5 @@
     db_prefix:    "vanilla",
     asset_path:   "vanilla",
     dependencies: [],
-    untyped:      ["textures", "blocks", "items"]
+    untyped:      ["textures"]
 )

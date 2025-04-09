@@ -28,6 +28,7 @@ pub struct SpacePlugin {
     pub cam_background_enabled: bool,
     pub cam_target: Option<String>,
     pub auto_soi_update: bool,
+    pub test: bool,
 }
 
 impl Default for SpacePlugin {
@@ -35,7 +36,7 @@ impl Default for SpacePlugin {
 }
 
 impl SpacePlugin {
-    pub fn new() -> Self { Self { draw_enabled: true, camera_enabled: false, cam_background_enabled: false, cam_target: None, auto_soi_update: false } }
+    pub fn new() -> Self { Self { draw_enabled: true, test: false, camera_enabled: false, cam_background_enabled: false, cam_target: None, auto_soi_update: false } }
 
     pub fn disable_draw(mut self) -> Self {
         self.draw_enabled = false;
@@ -47,7 +48,7 @@ impl Plugin for SpacePlugin {
         config_set(app);
 
         // plugins
-        app.add_plugins(PhysicsPlugin);
+        app.add_plugins(PhysicsPlugin { test: self.test });
 
         if self.camera_enabled {
             app.add_plugins(CamPlugin {
@@ -98,8 +99,5 @@ impl Plugin for SpacePlugin {
                     .render_layer(SPACE_LAYER)
                     .depth(100.0)
                 );
-                
-            // .scene_layer(SceneLayerConfig::new(SpaceLayer))
-            // .scene_generator(SpaceLayer);
     }
 }

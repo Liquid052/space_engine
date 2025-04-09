@@ -54,7 +54,7 @@ bevy-inspector-egui.workspace = true
 
 
 [workspace.dependencies]
-bevy = { version = "^0.14.2", features = ["file_watcher", "dynamic_linking", "serialize"] }
+bevy = { version = "^0.14.2", features = ["file_watcher", "serialize"] }
 # bevy related
 bevy_asset_loader   = { version = "0.21.0", features = ["2d", "progress_tracking"]}
 bevy_common_assets  = { version = "0.11.0",  features = ["ron"] }
@@ -87,28 +87,8 @@ unwrap_or_default = "warn"
 
 # Core
 [[example]]
-name = "pack_objects"
-path = "examples/core/pack_objects.rs"
-
-[[example]]
-name = "print_content"
-path = "examples/core/print_content.rs"
-
-[[example]]
 name = "camera"
 path = "examples/core/camera.rs"
-
-[[example]]
-name = "naming"
-path = "examples/core/naming.rs"
-
-[[example]]
-name = "streaming"
-path = "examples/core/streaming.rs"
-
-[[example]]
-name = "generation"
-path = "examples/core/generation.rs"
 
 
 # Space
@@ -116,20 +96,11 @@ path = "examples/core/generation.rs"
 name = "orbit_viewer"
 path = "examples/space/orbit_viewer.rs"
 
-[[example]]
-name = "two_body"
-path = "examples/space/two_body.rs"
-
-
-
-# Galaxy
-[[example]]
-name = "galaxy"
-path = "examples/galaxy/main.rs"
 
 [[example]]
-name = "block"
-path = "examples/block/block_test.rs"
+name = "orbit_viewer_perf"
+path = "examples/space/orbit_viewer_performance.rs"
+
 
 
 

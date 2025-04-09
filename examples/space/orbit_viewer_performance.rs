@@ -2,6 +2,7 @@ extern crate bevy;
 extern crate bevy_inspector_egui;
 extern crate space_engine;
 
+use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
 use bevy::input::mouse::MouseWheel;
 use bevy::prelude::*;
 use bevy_inspector_egui::quick::{ResourceInspectorPlugin, WorldInspectorPlugin};
@@ -16,9 +17,11 @@ fn main() {
                 draw_enabled: true,
                 camera_enabled: true,
                 cam_background_enabled: true,
-                cam_target: Some("Kerbin".into()),
+                cam_target: Some("5".into()),
+                test: true
             })
         )
+        .add_plugins((FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin::default()))
         .add_plugins(WorldInspectorPlugin::new())
         .add_plugins(ResourceInspectorPlugin::<SpaceTimeScale>::new())
         .add_systems(Startup, setup_space)
@@ -33,7 +36,7 @@ fn move_to_running(mut state: ResMut<NextState<AppState>>) {
 
 fn setup_space(mut commands: Commands) {
     commands.create_space("Test space");
-    commands.space_cam_follow("Kerbin");
+    commands.space_cam_follow("5");
 
     commands.add(Star::new("Sol")
         .mass(1.7565459e28)
@@ -41,42 +44,18 @@ fn setup_space(mut commands: Commands) {
         .color(Color::WHITE)
     );
 
-    commands.add(
-        Planet::new("Kerbin")
-            .mass(5.2915158e22)
-            .radius(600_000.0)
-            .color(Color::WHITE)
-            .semi_major_axis(23_599_840_256.0)
-    );
+    const SOI_DIFF: f64 = 40160887.7;
+    const COUNT: usize = 100;
 
-    commands.add(
-        Moon::new("Mun")
-            .mass(9.7599050e20)
-            .radius(300_000.0)
-            .color(Color::WHITE)
-            .semi_major_axis(18_000_000.0)
-            .mean_anomaly_at_epoch(-1.0)
-            .orbiting("Kerbin"),
-    );
-
-    commands.add(
-        Moon::new("Mun 2")
-            .mass(9.7599068e20)
-            .radius(300_000.0)
-            .color(Color::WHITE)
-            .eccentricity(0.03565)
-            .semi_major_axis(23608596822.4)
-            .argument_of_periapsis(1.845)
-            .mean_anomaly_at_epoch(-1.773),
-    );
-
-    commands.add(
-        SpaceShip::new("Vessel")
-            .semi_major_axis(2_000_000.0)
-            .mean_anomaly_at_epoch(-0.7)
-            .color(Color::srgb(1.0,1.0,0.0).into())
-            .orbiting("Kerbin")
-    );
+    for i in 0..COUNT {
+        commands.add(
+            Planet::new(i.to_string())
+                .mass(5.2915158e22)
+                .radius(600_000.0)
+                .color(Color::WHITE)
+                .semi_major_axis(1_599_840_256.0)
+        );
+    }
 }
 
 fn mouse_wheel_zoom(

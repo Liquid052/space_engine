@@ -8,7 +8,9 @@ use crate::{
 };
 use bevy::prelude::*;
 
-pub(super) struct PhysicsPlugin;
+pub(super) struct PhysicsPlugin {
+    pub test: bool
+}
 
 impl Plugin for PhysicsPlugin {
     fn build(&self, app: &mut App) {
@@ -38,18 +40,23 @@ impl Plugin for PhysicsPlugin {
                 )
                     .chain()
                     .in_set(SpaceSystemSet::Physics),
-            )
-            .add_systems(
-                Update,
-                (
-                    check_body_transfer,
-                    handle_body_transfer,
-                    check_vessel_transfer,
-                    handle_vessel_transfer,
-                )
-                    .chain()
-                    .in_set(SpaceSystemSet::Transfers),
             );
+
+            // for testing purposes disabled
+            if !self.test {
+                app.add_systems(
+                    Update,
+                    (
+                        check_body_transfer,
+                        handle_body_transfer,
+                        check_vessel_transfer,
+                        handle_vessel_transfer,
+                    )
+                        .chain()
+                        .in_set(SpaceSystemSet::Transfers),
+                );
+            }
+
     }
 }
 

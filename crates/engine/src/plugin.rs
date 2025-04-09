@@ -84,6 +84,7 @@ impl PluginGroup for EnginePlugin {
                 cam_background_enabled: false,
                 auto_soi_update: false,
                 cam_target: None,
+                test: false,
             });
         }
         
