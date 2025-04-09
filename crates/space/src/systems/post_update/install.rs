@@ -51,7 +51,7 @@ pub fn install_orbit_outline(
 }
 
 pub fn install_soi_outline(
-    mut query: Query<OrbitDraws, (Or<(With<Body>, With<TwoBody>)>, Added<Orbit>)>,
+    mut query: Query<OrbitDraws, (With<Body>, Added<Orbit>)>,
     mut commands: Commands,
 ) {
     const SOI_NAME: &str = "SOI";

@@ -63,10 +63,7 @@ impl SpaceDepth {
     }
 }
 
-#[doc(hidden)]
-#[derive(Reflect, Component, Clone, Copy, Debug, PartialEq)]
-#[reflect(Component)]
-pub struct TwoBody;
+
 
 // For bodies which shouldn't have certain values recalculated - such as soi
 #[doc(hidden)]
