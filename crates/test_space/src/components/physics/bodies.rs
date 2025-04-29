@@ -36,7 +36,6 @@ impl Body {
         smaller_mass / absolute_difference
     }
 
-    pub fn is_two_body(&self) -> bool { self.child1.is_some() && self.child2.is_some() }
 }
 
 #[doc(hidden)]

@@ -15,7 +15,7 @@ fn main() {
                 auto_soi_update: true,
                 draw_enabled: true,
                 camera_enabled: true,
-                cam_background_enabled: true,
+                cam_background_enabled: false,
                 cam_target: Some("Kerbin".into()),
                 test: false
             })
